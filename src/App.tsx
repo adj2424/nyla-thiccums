@@ -1,11 +1,14 @@
 import './App.css';
-import MyCanvas from './Canvas';
+import MyCanvas from './components/Canvas';
 
 function App() {
 	return (
-		<>
-			<MyCanvas />
-		</>
+		<div>
+			<div className="page w-full h-screen">
+				<MyCanvas />
+			</div>
+			{/* <div>testing</div> */}
+		</div>
 	);
 }
 
