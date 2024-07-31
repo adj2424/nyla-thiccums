@@ -23,8 +23,8 @@ export const PictureGroup = () => {
 	return (
 		<>
 			<group ref={pictures}>
-				<Picture />
-				<Picture />
+				<Picture position={[(Math.random() - 0.5) * 5, Math.random() - 0.5, -10]} />
+				{/* <Picture position={[(Math.random() - 0.5) * 5, Math.random() - 0.5, -10]} /> */}
 			</group>
 		</>
 	);
