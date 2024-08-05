@@ -1,22 +1,18 @@
-uniform float time;
-uniform vec2 uMouse;
+uniform float u_time;
 
 varying vec2 vUv;
 
-float circle(vec2 uv, vec2 circlePosition, float radius) {
-	float dist = distance(circlePosition, uv);
-	return 1. - smoothstep(0.0, radius, dist);
-}
-
-float elevation(float radius, float intensity) {
-	float circleShape = circle(uv, (uMouse * 0.5) + 0.5, radius);
-	return circleShape * intensity;
-}
-
 void main() {
-	vec3 newPosition = position;
-	newPosition.z += elevation(0.2, .7);
+  vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+  modelPosition.y += sin(modelPosition.x * 4.0 + u_time * 2.0) * 0.2;
+  
+  // Uncomment the code and hit the refresh button below for a more complex effect 🪄
+  // modelPosition.y += sin(modelPosition.z * 6.0 + u_time * 2.0) * 0.1;
 
-	csm_Position = newPosition;
 	vUv = uv;
+
+  vec4 viewPosition = viewMatrix * modelPosition;
+  vec4 projectedPosition = projectionMatrix * viewPosition;
+
+  gl_Position = projectedPosition;
 }
