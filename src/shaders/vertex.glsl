@@ -1,18 +1,18 @@
 uniform float u_time;
-
+uniform float u_intensity;
 varying vec2 vUv;
-
 void main() {
-  vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-  modelPosition.y += sin(modelPosition.x * 4.0 + u_time * 2.0) * 0.2;
-  
-  // Uncomment the code and hit the refresh button below for a more complex effect 🪄
-  // modelPosition.y += sin(modelPosition.z * 6.0 + u_time * 2.0) * 0.1;
-
 	vUv = uv;
+	 // Apply a wave effect to the vertex positions
+	vec3 deformedPosition = position;
 
-  vec4 viewPosition = viewMatrix * modelPosition;
-  vec4 projectedPosition = projectionMatrix * viewPosition;
+	// Combine uv.x and uv.y to create a diagonal wave
+	float wave1 = sin((uv.x + uv.y) * 5.0 + u_time) * u_intensity;
+	float wave2 = cos((uv.x + uv.y) * 3.0 + u_time) * u_intensity;
 
-  gl_Position = projectedPosition;
+	deformedPosition.y += wave1;
+	deformedPosition.x += wave2;
+
+    
+	gl_Position = projectionMatrix * modelViewMatrix * vec4(deformedPosition, 1.0);
 }
