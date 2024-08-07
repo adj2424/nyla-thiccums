@@ -16,9 +16,9 @@ export const Camera = () => {
 	useFrame(() => {
 		const parallaxX = cursor.x;
 		const parallaxY = -cursor.y;
-		//ref.current.position.x += (parallaxX - ref.current.position.x) * 0.2;
-		// ref.current.position.y += (parallaxY - ref.current.position.y) * 0.2;
+		ref.current.position.x += (parallaxX - ref.current.position.x) * 0.2;
+		ref.current.position.y += (parallaxY - ref.current.position.y) * 0.2;
 	});
 
-	return <PerspectiveCamera ref={ref} makeDefault position={[0, 0, 10]} />;
+	return <PerspectiveCamera fov={30} ref={ref} makeDefault position={[0, 0, 3]} />;
 };

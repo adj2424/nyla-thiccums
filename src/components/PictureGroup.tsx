@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { useScroll } from '@react-three/drei';
 import { TextureLoader } from 'three';
@@ -6,28 +6,38 @@ import { gsap } from 'gsap';
 import { Picture } from './Picture';
 
 export const PictureGroup = () => {
-	const [texture] = useLoader(TextureLoader, ['test.jpg']);
-	const pictures = useRef() as any;
-	const tl = gsap.timeline();
+	const paths = [...Array(52)].map((_, idx) => `${idx + 1}.jpg`);
+	console.log(paths);
+	const textures = useLoader(TextureLoader, paths);
+	const pictureGroup = useRef() as any;
 	const scroll = useScroll();
+	const [timeline] = useState(gsap.timeline());
+	const [pictures, setPictures] = useState<JSX.Element[]>();
 
 	useFrame(() => {
-		tl.seek(scroll.offset * tl.duration());
+		timeline.seek(scroll.offset * timeline.duration());
 	});
 
+	useEffect(() => {
+		const ret = textures.map((texture, idx) => {
+			const position: [number, number, number] = [0, (Math.random() - 0.5) * 0.5, -idx * 2.5];
+			idx % 2 !== 0 ? (position[0] = 1) : (position[0] = -1);
+			return <Picture key={idx} position={position} texture={texture} idx={idx} group={pictureGroup} />;
+		});
+		setPictures(ret);
+	}, []);
+
 	useLayoutEffect(() => {
-		tl.to(pictures.current.position, {
-			z: 100,
-			duration: 2
+		timeline.to(pictureGroup.current.position, {
+			z: 130,
+			duration: 20
 		});
 	}, []);
 
 	return (
 		<>
-			<group ref={pictures}>
-				<Picture position={[(Math.random() - 0.5) * 2, Math.random() - 0.5, -10]} texture={texture} />
-				{/* <Picture position={[(Math.random() - 0.5) * 5, Math.random() - 0.5, -10]} /> */}
-			</group>
+			<group ref={pictureGroup}>{pictures}</group>
 		</>
 	);
 };
+

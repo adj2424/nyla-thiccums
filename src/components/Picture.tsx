@@ -1,45 +1,60 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { SRGBColorSpace, Texture } from 'three';
+import { gsap } from 'gsap';
 import vertexShader from '../shaders/vertex.glsl';
 import fragmentShader from '../shaders/fragment.glsl';
+
+gsap.registerPlugin();
 
 export interface Props {
 	texture: Texture;
 	position: [number, number, number];
+	idx: number;
+	group: any;
 }
 
-export const Picture = ({ texture, position }: Props) => {
+export const Picture = ({ texture, position, idx, group }: Props) => {
 	const [aspectRatio, setAspectRatio] = useState(1);
-	const materialRef = useRef() as any;
+	const meshRef = useRef() as any;
 	const uniforms = useMemo(
 		() => ({
 			u_time: { value: 0.0 },
 			u_texture: { value: texture },
-			u_intensity: { value: 0.01 }
+			u_intensity: { value: 0.01 },
+			u_opacity: { value: 1.0 }
 		}),
 		[texture]
 	);
 
 	useEffect(() => {
-		texture.colorSpace = SRGBColorSpace;
+		// texture.colorSpace = SRGBColorSpace;
 		setAspectRatio(texture.image.width / texture.image.height);
 	}, [texture]);
 
 	useFrame(state => {
-		materialRef.current.uniforms.u_time.value = state.clock.getElapsedTime();
+		meshRef.current.material.uniforms.u_time.value = state.clock.getElapsedTime();
+		console.log(group.current.position.z);
+		if (group.current.position.z + 6 < 2.5 * idx) {
+			gsap.to(meshRef.current.material.uniforms.u_opacity, {
+				value: 0,
+				duration: 0.7,
+				ease: 'expoScale(0.5,7,none)'
+			});
+		} else {
+			gsap.to(meshRef.current.material.uniforms.u_opacity, {
+				value: 1,
+				duration: 0.7,
+				ease: 'expoScale(0.5,7,none)'
+			});
+		}
 	});
 
 	return (
 		<>
-			<mesh position={position}>
+			<mesh ref={meshRef} position={position}>
 				<planeGeometry args={[aspectRatio, 1, 32, 32]} />
-				<shaderMaterial
-					ref={materialRef}
-					fragmentShader={fragmentShader}
-					vertexShader={vertexShader}
-					uniforms={uniforms}
-				/>
+				<shaderMaterial fragmentShader={fragmentShader} vertexShader={vertexShader} uniforms={uniforms} />
 			</mesh>
 		</>
 	);

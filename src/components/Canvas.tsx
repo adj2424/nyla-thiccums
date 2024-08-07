@@ -14,7 +14,7 @@ const MyCanvas = () => {
 			<Canvas>
 				<Camera />
 				<ambientLight intensity={1} />
-				<ScrollControls pages={16} damping={0.5}>
+				<ScrollControls pages={25} damping={0.5}>
 					<PictureGroup />
 				</ScrollControls>
 			</Canvas>
