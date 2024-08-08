@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { SRGBColorSpace, Texture } from 'three';
+import { Texture } from 'three';
 import { gsap } from 'gsap';
 import vertexShader from '../shaders/vertex.glsl';
 import fragmentShader from '../shaders/fragment.glsl';
@@ -28,13 +28,11 @@ export const Picture = ({ texture, position, idx, group }: Props) => {
 	);
 
 	useEffect(() => {
-		// texture.colorSpace = SRGBColorSpace;
 		setAspectRatio(texture.image.width / texture.image.height);
 	}, [texture]);
 
 	useFrame(state => {
 		meshRef.current.material.uniforms.u_time.value = state.clock.getElapsedTime();
-		console.log(group.current.position.z);
 		if (group.current.position.z + 6 < 2.5 * idx) {
 			gsap.to(meshRef.current.material.uniforms.u_opacity, {
 				value: 0,

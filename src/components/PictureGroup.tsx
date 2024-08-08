@@ -1,21 +1,23 @@
 import { useState, useRef, useLayoutEffect, useEffect } from 'react';
-import { useFrame, useLoader } from '@react-three/fiber';
-import { useScroll } from '@react-three/drei';
+import { useFrame, useLoader, useThree } from '@react-three/fiber';
+import { Html, useScroll } from '@react-three/drei';
 import { TextureLoader } from 'three';
 import { gsap } from 'gsap';
 import { Picture } from './Picture';
 
 export const PictureGroup = () => {
-	const paths = [...Array(52)].map((_, idx) => `${idx + 1}.jpg`);
-	console.log(paths);
+	const ref = useRef() as any;
+	const paths = [...Array(5)].map((_, idx) => `${idx + 1}.jpg`);
 	const textures = useLoader(TextureLoader, paths);
 	const pictureGroup = useRef() as any;
 	const scroll = useScroll();
 	const [timeline] = useState(gsap.timeline());
 	const [pictures, setPictures] = useState<JSX.Element[]>();
+	const scrollData = useScroll();
 
 	useFrame(() => {
 		timeline.seek(scroll.offset * timeline.duration());
+		console.log(ref.current);
 	});
 
 	useEffect(() => {
@@ -34,8 +36,13 @@ export const PictureGroup = () => {
 		});
 	}, []);
 
+	// buggy LULW https://github.com/pmndrs/drei/pull/1126
+
 	return (
 		<>
+			<Html className="bg-red-600" transform portal={{ current: scrollData.fixed }}>
+				<div className="">hiiiiiiiiiii</div>
+			</Html>
 			<group ref={pictureGroup}>{pictures}</group>
 		</>
 	);
