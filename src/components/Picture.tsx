@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Texture } from 'three';
+import { MeshBasicMaterial, Texture } from 'three/src/materials/MeshBasicMaterial';
 import { gsap } from 'gsap';
 import vertexShader from '../shaders/vertex.glsl';
 import fragmentShader from '../shaders/fragment.glsl';
@@ -8,7 +8,7 @@ import fragmentShader from '../shaders/fragment.glsl';
 gsap.registerPlugin();
 
 export interface Props {
-	texture: Texture;
+	texture: Texture | any;
 	position: [number, number, number];
 	idx: number;
 	group: any;
@@ -52,7 +52,13 @@ export const Picture = ({ texture, position, idx, group }: Props) => {
 		<>
 			<mesh ref={meshRef} position={position}>
 				<planeGeometry args={[aspectRatio, 1, 32, 32]} />
-				<shaderMaterial fragmentShader={fragmentShader} vertexShader={vertexShader} uniforms={uniforms} />
+				<shaderMaterial
+					transparent={true}
+					fragmentShader={fragmentShader}
+					vertexShader={vertexShader}
+					uniforms={uniforms}
+				/>
+				{/* <meshBasicMaterial map={texture} toneMapped={false} /> */}
 			</mesh>
 		</>
 	);
