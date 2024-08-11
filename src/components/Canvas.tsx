@@ -4,10 +4,11 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { PictureGroup } from './PictureGroup';
 import { World } from './World';
+import { sRGBEncoding } from '@react-three/drei/helpers/deprecated';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const MyCanvas = ({ setColorIdx }: any) => {
+const MyCanvas = () => {
 	return (
 		<>
 			{/* <p className="absolute w-full bg-slate-50 z-[5] text-xl">
@@ -17,8 +18,7 @@ const MyCanvas = ({ setColorIdx }: any) => {
 			<Canvas>
 				<ScrollControls pages={25} damping={0.5}>
 					<PictureGroup />
-					<World setColorIdx={setColorIdx} />
-					{/* <Time /> */}
+					<World />
 				</ScrollControls>
 			</Canvas>
 		</>
