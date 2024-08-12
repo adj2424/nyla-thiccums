@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { MeshBasicMaterial, Texture } from 'three/src/materials/MeshBasicMaterial';
+import { Texture } from 'three';
 import { gsap } from 'gsap';
 import vertexShader from '../shaders/vertex.glsl';
 import fragmentShader from '../shaders/fragment.glsl';
@@ -17,6 +17,7 @@ export interface Props {
 export const Picture = ({ texture, position, idx, group }: Props) => {
 	const [aspectRatio, setAspectRatio] = useState(1);
 	const meshRef = useRef() as any;
+	const borderMaterialRef = useRef() as any;
 	const uniforms = useMemo(
 		() => ({
 			u_time: { value: 0.0 },
@@ -39,9 +40,19 @@ export const Picture = ({ texture, position, idx, group }: Props) => {
 				duration: 0.7,
 				ease: 'expoScale(0.5,7,none)'
 			});
+			gsap.to(borderMaterialRef.current, {
+				opacity: 0,
+				duration: 0.7,
+				ease: 'expoScale(0.5,7,none)'
+			});
 		} else {
 			gsap.to(meshRef.current.material.uniforms.u_opacity, {
 				value: 1,
+				duration: 0.7,
+				ease: 'expoScale(0.5,7,none)'
+			});
+			gsap.to(borderMaterialRef.current, {
+				opacity: 1,
 				duration: 0.7,
 				ease: 'expoScale(0.5,7,none)'
 			});
@@ -58,7 +69,10 @@ export const Picture = ({ texture, position, idx, group }: Props) => {
 					vertexShader={vertexShader}
 					uniforms={uniforms}
 				/>
-				{/* <meshBasicMaterial map={texture} toneMapped={false} /> */}
+			</mesh>
+			<mesh position={[position[0], position[1], position[2] - 0.01]}>
+				<planeGeometry args={[aspectRatio + 0.2, 1 + 0.2, 32, 32]} />
+				<meshBasicMaterial ref={borderMaterialRef} color="white" toneMapped={false} transparent={true} />
 			</mesh>
 		</>
 	);

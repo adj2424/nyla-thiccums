@@ -2,9 +2,9 @@ import { Canvas } from '@react-three/fiber';
 import { ScrollControls } from '@react-three/drei';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { PictureGroup } from './PictureGroup';
+import { MovingGroup } from './MovingGroup';
 import { World } from './World';
-import { sRGBEncoding } from '@react-three/drei/helpers/deprecated';
+import { Time } from './Time';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,7 +17,6 @@ const MyCanvas = () => {
 
 			<Canvas>
 				<ScrollControls pages={25} damping={0.5}>
-					<PictureGroup />
 					<World />
 				</ScrollControls>
 			</Canvas>
