@@ -62,7 +62,7 @@ export const Picture = ({ texture, position, idx, group }: Props) => {
 	return (
 		<>
 			<mesh ref={meshRef} position={position}>
-				<planeGeometry args={[aspectRatio, 1, 32, 32]} />
+				<planeGeometry args={[aspectRatio, 1, 4, 4]} />
 				<shaderMaterial
 					transparent={true}
 					fragmentShader={fragmentShader}
@@ -71,7 +71,7 @@ export const Picture = ({ texture, position, idx, group }: Props) => {
 				/>
 			</mesh>
 			<mesh position={[position[0], position[1], position[2] - 0.01]}>
-				<planeGeometry args={[aspectRatio + 0.2, 1 + 0.2, 32, 32]} />
+				<planeGeometry args={[aspectRatio + 0.2, 1 + 0.2, 1, 1]} />
 				<meshBasicMaterial ref={borderMaterialRef} color="white" toneMapped={false} transparent={true} />
 			</mesh>
 		</>

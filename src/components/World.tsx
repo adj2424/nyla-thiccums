@@ -19,7 +19,7 @@ export const World = () => {
 		'rgb(144,99,205)'
 	];
 	const bgColors: number[][] | any = [
-		[246 / 255, 187 / 255, 207 / 255], // test
+		[244 / 255, 206 / 255, 211 / 255], // test
 		// [255 / 255, 184 / 255, 217 / 255], // FFB8D9
 		[255 / 255, 249 / 255, 200 / 255], // FFF9C8
 		[198 / 255, 238 / 255, 214 / 255], // C6EED6
@@ -44,16 +44,16 @@ export const World = () => {
 	}, []);
 
 	useEffect(() => {
-		gsap.to(currentBgColor, {
-			r: bgColors[colorIdx][0],
-			g: bgColors[colorIdx][1],
-			b: bgColors[colorIdx][2],
-			duration: 2,
-			ease: 'power2.out',
-			onUpdate: () => {
-				scene.background = new Color(currentBgColor.r, currentBgColor.g, currentBgColor.b).convertSRGBToLinear();
-			}
-		});
+		// gsap.to(currentBgColor, {
+		// 	r: bgColors[colorIdx][0],
+		// 	g: bgColors[colorIdx][1],
+		// 	b: bgColors[colorIdx][2],
+		// 	duration: 2,
+		// 	ease: 'power2.out',
+		// 	onUpdate: () => {
+		// 		scene.background = new Color(currentBgColor.r, currentBgColor.g, currentBgColor.b).convertSRGBToLinear();
+		// 	}
+		// });
 		gsap.to(headerRef.current, {
 			color: stringColors[colorIdx],
 			duration: 2,
@@ -88,9 +88,9 @@ export const World = () => {
 			<div ref={footerRef} className="font-neuton font-semibold text-9xl mb-[4rem]">
 				365 Days Together
 			</div> */}
-					<div className="font-bold text-8xl text-[#FF1900] mt-[3.5rem]">A LOOK BACK</div>
+					<div className="font-bold text-8xl text-[#E33529] mt-[3.5rem]">A LOOK BACK</div>
 					{/* <Spline scene="https://prod.spline.design/RdlIGAC2FgtRg8PR/scene.splinecode" /> */}
-					<div className="font-bold text-8xl text-[#FF1900] mb-[4rem]">365 DAYS TOGETHER</div>
+					<div className="font-bold text-8xl text-[#E33529] mb-[4rem]">365 DAYS TOGETHER</div>
 				</div>
 			</Html>
 			<directionalLight ref={dirLightRef} position={[1, 1, 0.2]} intensity={2} />
