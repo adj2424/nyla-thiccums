@@ -16,11 +16,12 @@ export interface Props {
 
 export const Picture = ({ texture, position, idx, group }: Props) => {
 	const [aspectRatio, setAspectRatio] = useState(1);
+	const random = Math.random() * 1000;
 	const meshRef = useRef() as any;
 	const borderMaterialRef = useRef() as any;
 	const uniforms = useMemo(
 		() => ({
-			u_time: { value: 0.0 },
+			u_time: { value: 0 },
 			u_texture: { value: texture },
 			u_intensity: { value: 0.01 },
 			u_opacity: { value: 1.0 }
@@ -33,7 +34,7 @@ export const Picture = ({ texture, position, idx, group }: Props) => {
 	}, [texture]);
 
 	useFrame(state => {
-		meshRef.current.material.uniforms.u_time.value = state.clock.getElapsedTime();
+		meshRef.current.material.uniforms.u_time.value = state.clock.getElapsedTime() + random;
 		if (group.current.position.z + 6 < 2.5 * idx) {
 			gsap.to(meshRef.current.material.uniforms.u_opacity, {
 				value: 0,
@@ -62,7 +63,7 @@ export const Picture = ({ texture, position, idx, group }: Props) => {
 	return (
 		<>
 			<mesh ref={meshRef} position={position}>
-				<planeGeometry args={[aspectRatio, 1, 4, 4]} />
+				<planeGeometry args={[aspectRatio, 1, 16, 16]} />
 				<shaderMaterial
 					transparent={true}
 					fragmentShader={fragmentShader}

@@ -54,16 +54,16 @@ export const World = () => {
 		// 		scene.background = new Color(currentBgColor.r, currentBgColor.g, currentBgColor.b).convertSRGBToLinear();
 		// 	}
 		// });
-		gsap.to(headerRef.current, {
-			color: stringColors[colorIdx],
-			duration: 2,
-			ease: 'power2.out'
-		});
-		gsap.to(footerRef.current, {
-			color: stringColors[colorIdx],
-			duration: 2,
-			ease: 'power2.out'
-		});
+		// gsap.to(headerRef.current, {
+		// 	color: stringColors[colorIdx],
+		// 	duration: 2,
+		// 	ease: 'power2.out'
+		// });
+		// gsap.to(footerRef.current, {
+		// 	color: stringColors[colorIdx],
+		// 	duration: 2,
+		// 	ease: 'power2.out'
+		// });
 	}, [colorIdx]);
 
 	useFrame(() => {
@@ -74,8 +74,6 @@ export const World = () => {
 		const parallaxY = -cursor.y;
 		cameraRef.current.position.x += (parallaxX - cameraRef.current.position.x) * 0.2;
 		cameraRef.current.position.y += (parallaxY - cameraRef.current.position.y) * 0.2;
-		dirLightRef.current.position.x = cameraRef.current.position.x;
-		dirLightRef.current.position.y = cameraRef.current.position.y;
 	});
 
 	return (
@@ -93,8 +91,6 @@ export const World = () => {
 					<div className="font-bold text-8xl text-[#E33529] mb-[4rem]">365 DAYS TOGETHER</div>
 				</div>
 			</Html>
-			<directionalLight ref={dirLightRef} position={[1, 1, 0.2]} intensity={2} />
-			<ambientLight intensity={9} />
 			<MovingGroup />
 
 			<PerspectiveCamera fov={35} ref={cameraRef} makeDefault position={[0, 0, 3]} />

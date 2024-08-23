@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { gsap } from 'gsap';
 
 export interface Props {
@@ -12,7 +12,7 @@ export const Star = ({ idx, group }): any => {
 	const skip = 30;
 
 	const getRandXCoord = () => {
-		return (Math.random() - 0.5) * 22;
+		return (Math.random() - 0.5) * 20;
 	};
 	const getRandYCoord = () => {
 		return (Math.random() - 0.5) * 18;
@@ -20,17 +20,14 @@ export const Star = ({ idx, group }): any => {
 
 	useFrame(state => {
 		const time = state.clock.getElapsedTime() + randScale * 10000;
-		// past camera send stars back
+		// stars are past camera send stars back
 		if (group.current.position.z - 2 > -starRef.current.position.z) {
-			console.log('before camera', group.current.position.z, 'star ', -starRef.current.position.z);
 			starRef.current.position.z = -(group.current.position.z + skip);
 			starRef.current.position.x = getRandXCoord();
 			starRef.current.position.y = getRandYCoord();
-			console.log('after camera', group.current.position.z, 'star ', -starRef.current.position.z);
 		}
 		// stars too far send stars forward to camera
 		else if (group.current.position.z + skip < -starRef.current.position.z) {
-			console.log(group.current.position.z, -starRef.current.position.z);
 			starRef.current.position.z = -group.current.position.z;
 			starRef.current.position.x = getRandXCoord();
 			starRef.current.position.y = getRandYCoord();
@@ -59,7 +56,7 @@ export const Star = ({ idx, group }): any => {
 				scale={[randScale, randScale, 1]}
 				position={[getRandXCoord(), getRandYCoord(), (-skip / 30) * idx]}
 			>
-				<planeGeometry args={[0.2 + Math.random() * 0.07, 0.2 + Math.random() * 0.07, 1, 1]} />
+				<planeGeometry args={[0.21 + Math.random() * 0.07, 0.21 + Math.random() * 0.07, 1, 1]} />
 				<meshBasicMaterial color="white" toneMapped={false} opacity={1} transparent={true} />
 			</mesh>
 		</>
