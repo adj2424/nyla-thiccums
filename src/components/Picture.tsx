@@ -38,24 +38,22 @@ export const Picture = ({ texture, position, idx, group }: Props) => {
 		if (group.current.position.z + 6 < 2.5 * idx) {
 			gsap.to(meshRef.current.material.uniforms.u_opacity, {
 				value: 0,
-				duration: 0.7,
-				ease: 'expoScale(0.5,7,none)'
+				duration: 0.8
 			});
 			gsap.to(borderMaterialRef.current, {
 				opacity: 0,
-				duration: 0.7,
-				ease: 'expoScale(0.5,7,none)'
+				duration: 0.8
 			});
 		} else {
 			gsap.to(meshRef.current.material.uniforms.u_opacity, {
 				value: 1,
-				duration: 0.7,
-				ease: 'expoScale(0.5,7,none)'
+				duration: 0.11,
+				ease: 'power1.in'
 			});
 			gsap.to(borderMaterialRef.current, {
 				opacity: 1,
-				duration: 0.7,
-				ease: 'expoScale(0.5,7,none)'
+				duration: 0.11,
+				ease: 'power1.in'
 			});
 		}
 	});

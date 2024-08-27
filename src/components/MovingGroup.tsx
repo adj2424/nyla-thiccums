@@ -27,8 +27,9 @@ export const MovingGroup = () => {
 		});
 		setPictures(ret);
 		const test = [];
-		for (let i = 0; i < 30; i++) {
-			test.push(<Star key={i} idx={i} group={movingGroup} />);
+		const stars = 40;
+		for (let i = 0; i < stars; i++) {
+			test.push(<Star key={i} idx={i} group={movingGroup} totalStars={stars} />);
 		}
 		setStars(test);
 	}, []);
