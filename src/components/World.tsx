@@ -19,7 +19,7 @@ export const World = () => {
 		'rgb(144,99,205)'
 	];
 	const bgColors: number[][] | any = [
-		[244 / 255, 206 / 255, 211 / 255], // test
+		[244 / 255, 206 / 255, 211 / 255], // test #F4CED3
 		// [255 / 255, 184 / 255, 217 / 255], // FFB8D9
 		[255 / 255, 249 / 255, 200 / 255], // FFF9C8
 		[198 / 255, 238 / 255, 214 / 255], // C6EED6
@@ -79,18 +79,31 @@ export const World = () => {
 	return (
 		<>
 			<Html portal={{ current: scroll.fixed }} center position={[0, 0, 3]}>
-				<div className="w-screen h-screen flex flex-col items-center justify-between">
-					{/* <div ref={headerRef} className="font-neuton font-semibold text-9xl mt-[3.5rem]">
-				A Look Back
-			</div>
-			<div ref={footerRef} className="font-neuton font-semibold text-9xl mb-[4rem]">
-				365 Days Together
-			</div> */}
-					<div className="font-bold text-8xl text-[#E33529] mt-[3.5rem]">A LOOK BACK</div>
-					{/* <Spline scene="https://prod.spline.design/RdlIGAC2FgtRg8PR/scene.splinecode" /> */}
-					<div className="font-bold text-8xl text-[#E33529] mb-[4rem]">365 DAYS TOGETHER</div>
+				<Spline
+					className="w-screen h-screen absolute"
+					scene="https://prod.spline.design/RdlIGAC2FgtRg8PR/scene.splinecode"
+				/>
+				<div className="grid grid-cols-2 w-screen h-screen bg-[#f3c3cb]">
+					<div className="flex items-center h-full font-fuzzyBubbles col-span-2 text-[18rem] font-bold text-white ml-[15rem]">
+						<div>I LOVE</div>
+						<div className="text-[3rem] ml-[15rem] text-[#E33529]"> red circle</div>
+					</div>
+
+					<div className="flex items-center h-full font-fuzzyBubbles text-[3rem] ml-[15rem] text-[#E33529]">
+						red stuff
+					</div>
+
+					<div className="flex items-center h-full font-fuzzyBubbles text-[18rem] font-bold text-white ml-[15rem]">
+						YOU
+					</div>
 				</div>
+
+				{/* <div className="w-screen h-screen flex flex-col items-center justify-between">
+					<div className="font-fuzzyBubbles font-bold text-8xl text-[#E33529] mt-[3.5rem]">A LOOK BACK</div>
+					<div className="font-fuzzyBubbles font-bold text-8xl text-[#E33529] mb-[4rem]">365 DAYS TOGETHER</div>
+				</div> */}
 			</Html>
+
 			<MovingGroup />
 
 			<PerspectiveCamera fov={35} ref={cameraRef} makeDefault position={[0, 0, 3]} />

@@ -47,12 +47,12 @@ export const Picture = ({ texture, position, idx, group }: Props) => {
 		} else {
 			gsap.to(meshRef.current.material.uniforms.u_opacity, {
 				value: 1,
-				duration: 0.11,
+				duration: 0.1,
 				ease: 'power1.in'
 			});
 			gsap.to(borderMaterialRef.current, {
 				opacity: 1,
-				duration: 0.11,
+				duration: 0.1,
 				ease: 'power1.in'
 			});
 		}

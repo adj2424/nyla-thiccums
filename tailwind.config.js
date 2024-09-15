@@ -4,8 +4,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				neuton: ['Neuton', 'serif'],
-				comfortaa: ['Comfortaa', 'sans-serif']
+				fuzzyBubbles: ['Fuzzy Bubbles', 'sans-serif']
 			}
 		}
 	},

@@ -36,7 +36,7 @@ export const Star = ({ idx, group, totalStars }: Props) => {
 					ease: 'power1.out'
 				}
 			);
-			starRef.current.position.z = -group.current.position.z - skip + offset + Math.random() * 8;
+			starRef.current.position.z = -group.current.position.z - skip + offset + Math.random() * 18;
 			starRef.current.position.x = getRandXCoord();
 			starRef.current.position.y = getRandYCoord();
 		}
@@ -45,7 +45,7 @@ export const Star = ({ idx, group, totalStars }: Props) => {
 			console.log('opacity changed');
 			gsap.timeline().to(starRef.current.material, {
 				opacity: 0,
-				duration: 0.8,
+				duration: 0.3,
 				onComplete: () => {
 					starRef.current.position.z = -group.current.position.z + skip - offset;
 					starRef.current.material.opacity = 1;
