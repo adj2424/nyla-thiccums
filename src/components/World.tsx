@@ -19,7 +19,7 @@ export const World = () => {
 		'rgb(144,99,205)'
 	];
 	const bgColors: number[][] | any = [
-		[244 / 255, 206 / 255, 211 / 255], // test #F4CED3
+		[243 / 255, 195 / 255, 203 / 255], // test
 		// [255 / 255, 184 / 255, 217 / 255], // FFB8D9
 		[255 / 255, 249 / 255, 200 / 255], // FFF9C8
 		[198 / 255, 238 / 255, 214 / 255], // C6EED6
@@ -35,6 +35,7 @@ export const World = () => {
 	const scroll = useScroll();
 	const { scene } = useThree();
 	const [currentBgColor] = useState({ r: bgColors[0][0], g: bgColors[0][1], b: bgColors[0][2] });
+	const [entering, setEntering] = useState(false);
 
 	useEffect(() => {
 		window.addEventListener('mousemove', e => {
@@ -76,26 +77,40 @@ export const World = () => {
 		cameraRef.current.position.y += (parallaxY - cameraRef.current.position.y) * 0.2;
 	});
 
+	const enter = () => {
+		setEntering(true);
+		gsap.to('.page', {
+			yPercent: -100,
+			duration: 1,
+			ease: 'back.in(1.7)'
+		});
+	};
+
 	return (
 		<>
 			<Html portal={{ current: scroll.fixed }} center position={[0, 0, 3]}>
-				<Spline
-					className="w-screen h-screen absolute"
-					scene="https://prod.spline.design/RdlIGAC2FgtRg8PR/scene.splinecode"
-				/>
-				<div className="grid grid-cols-2 w-screen h-screen bg-[#f3c3cb]">
-					<div className="flex items-center h-full font-fuzzyBubbles col-span-2 text-[18rem] font-bold text-white ml-[15rem]">
-						<div>I LOVE</div>
-						<div className="text-[3rem] ml-[15rem] text-[#E33529]"> red circle</div>
-					</div>
+				<div className="absolute left-[-50vw] top-[-50vh]">
+					<div className="page absolute z-[3] ">
+						<Spline className="absolute" scene="https://prod.spline.design/RdlIGAC2FgtRg8PR/scene.splinecode" />
+						<div className="grid grid-cols-2 w-screen h-screen bg-[#f3c3cb]">
+							<div className="flex items-center h-full font-fuzzyBubbles col-span-2 text-[18rem] font-bold text-white ml-[15rem]">
+								<div>I LOVE</div>
+								<button className="relative text-[3rem] ml-[15rem] z-[1] text-[#E33529]" onClick={enter}>
+									ENTER
+								</button>
+							</div>
 
-					<div className="flex items-center h-full font-fuzzyBubbles text-[3rem] ml-[15rem] text-[#E33529]">
-						red stuff
-					</div>
+							<div className="flex items-center h-full font-fuzzyBubbles text-[3rem] ml-[15rem] text-[#E33529]">
+								my pookie bear
+							</div>
 
-					<div className="flex items-center h-full font-fuzzyBubbles text-[18rem] font-bold text-white ml-[15rem]">
-						YOU
+							<div className="flex items-center h-full font-fuzzyBubbles text-[18rem] font-bold text-white ml-[15rem]">
+								YOU
+							</div>
+						</div>
 					</div>
+					{/* <div className="page absolute bg-[#E33529] w-screen h-screen z-[2]"></div>
+					<div className="page absolute bg-white w-screen h-screen z-[1]"></div> */}
 				</div>
 
 				{/* <div className="w-screen h-screen flex flex-col items-center justify-between">
@@ -104,7 +119,7 @@ export const World = () => {
 				</div> */}
 			</Html>
 
-			<MovingGroup />
+			<MovingGroup entering={entering} />
 
 			<PerspectiveCamera fov={35} ref={cameraRef} makeDefault position={[0, 0, 3]} />
 		</>

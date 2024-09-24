@@ -6,7 +6,7 @@ import { gsap } from 'gsap';
 import { Picture } from './Picture';
 import { Star } from './Star';
 
-export const MovingGroup = () => {
+export const MovingGroup = props => {
 	const paths = [...Array(52)].map((_, idx) => `${idx + 1}.jpg`);
 	const textures = useLoader(TextureLoader, paths);
 	const movingGroup = useRef() as any;
@@ -41,9 +41,23 @@ export const MovingGroup = () => {
 		});
 	}, []);
 
+	useLayoutEffect(() => {
+		if (!props.entering) {
+			return;
+		}
+		gsap.to(movingGroup.current.scale, {
+			x: 1,
+			y: 1,
+			z: 1,
+			duration: 3,
+			delay: 0.8,
+			ease: 'power2.inOut'
+		});
+	}, [props.entering]);
+
 	return (
 		<>
-			<group ref={movingGroup}>
+			<group ref={movingGroup} scale={[0, 0, 0]}>
 				{pictures}
 				{stars}
 			</group>
