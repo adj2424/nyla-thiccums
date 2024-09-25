@@ -4,7 +4,8 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				fuzzyBubbles: ['Fuzzy Bubbles', 'sans-serif']
+				fuzzyBubbles: ['Fuzzy Bubbles', 'sans-serif'],
+				oswald: ['Oswald', 'sans-serif']
 			}
 		}
 	},

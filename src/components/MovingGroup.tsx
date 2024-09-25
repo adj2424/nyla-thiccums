@@ -5,8 +5,11 @@ import { TextureLoader } from 'three';
 import { gsap } from 'gsap';
 import { Picture } from './Picture';
 import { Star } from './Star';
+import { state } from '../constants';
+import { CustomEase } from 'gsap/CustomEase';
 
-export const MovingGroup = props => {
+export const MovingGroup = ({ pageState }) => {
+	gsap.registerPlugin(CustomEase);
 	const paths = [...Array(52)].map((_, idx) => `${idx + 1}.jpg`);
 	const textures = useLoader(TextureLoader, paths);
 	const movingGroup = useRef() as any;
@@ -42,18 +45,30 @@ export const MovingGroup = props => {
 	}, []);
 
 	useLayoutEffect(() => {
-		if (!props.entering) {
-			return;
+		if (pageState === state.HERO) {
+			gsap.to(movingGroup.current.scale, {
+				x: 0.001,
+				y: 0.001,
+				z: 0.001,
+				duration: 1.5,
+				ease: CustomEase.create(
+					'custom',
+					'M0,0 C0,0 0.04,-0.097 0.134,-0.099 0.171,-0.1 0.223,-0.077 0.269,0 0.321,0.088 0.329,0.1 0.389,0.258 0.442,0.401 0.461,0.523 0.513,0.652 0.561,0.771 0.592,0.834 0.673,0.912 0.737,0.974 0.769,0.979 0.861,1 0.939,1.017 1,1 1,1 '
+				)
+			});
 		}
-		gsap.to(movingGroup.current.scale, {
-			x: 1,
-			y: 1,
-			z: 1,
-			duration: 3,
-			delay: 0.8,
-			ease: 'power2.inOut'
-		});
-	}, [props.entering]);
+		//
+		else if (pageState === state.GALLERY) {
+			gsap.to(movingGroup.current.scale, {
+				x: 1,
+				y: 1,
+				z: 1,
+				duration: 3.5,
+				delay: 0.8,
+				ease: 'power2.inOut'
+			});
+		}
+	}, [pageState]);
 
 	return (
 		<>

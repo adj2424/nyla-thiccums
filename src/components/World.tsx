@@ -2,22 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Html, PerspectiveCamera, useScroll } from '@react-three/drei';
 import { Color } from 'three';
-import { Time } from './Time';
+// import { Time } from './Time';
 import { gsap } from 'gsap';
 import Spline from '@splinetool/react-spline';
 import { MovingGroup } from './MovingGroup';
+import { state } from '../constants';
 
 gsap.registerPlugin();
 
 export const World = () => {
 	gsap.registerPlugin();
-	const stringColors: string[] = [
-		'rgb(236 72 153)',
-		'rgb(255,173,0)',
-		'rgb(0,135,62)',
-		'rgb(15,82,186)',
-		'rgb(144,99,205)'
-	];
+
 	const bgColors: number[][] | any = [
 		[243 / 255, 195 / 255, 203 / 255], // test
 		// [255 / 255, 184 / 255, 217 / 255], // FFB8D9
@@ -29,13 +24,10 @@ export const World = () => {
 	const [cursor, setCursor] = useState({ x: 0, y: 0 });
 	const [colorIdx, setColorIdx] = useState(0);
 	const cameraRef = useRef() as any;
-	const dirLightRef = useRef() as any;
-	const headerRef = useRef(null);
-	const footerRef = useRef(null);
 	const scroll = useScroll();
 	const { scene } = useThree();
 	const [currentBgColor] = useState({ r: bgColors[0][0], g: bgColors[0][1], b: bgColors[0][2] });
-	const [entering, setEntering] = useState(false);
+	const [pageState, setPageState] = useState<state>(state.HERO);
 
 	useEffect(() => {
 		window.addEventListener('mousemove', e => {
@@ -78,18 +70,28 @@ export const World = () => {
 	});
 
 	const enter = () => {
-		setEntering(true);
+		setPageState(state.GALLERY);
 		gsap.to('.page', {
-			yPercent: -100,
+			yPercent: -110,
 			duration: 1,
 			ease: 'back.in(1.7)'
+		});
+	};
+
+	const back = () => {
+		setPageState(state.HERO);
+		gsap.to('.page', {
+			yPercent: 0,
+			duration: 2,
+			delay: 1.3,
+			ease: 'power2.out'
 		});
 	};
 
 	return (
 		<>
 			<Html portal={{ current: scroll.fixed }} center position={[0, 0, 3]}>
-				<div className="absolute left-[-50vw] top-[-50vh]">
+				<div className="absolute left-[-50vw] top-[-50vh] w-screen h-screen">
 					<div className="page absolute z-[3] ">
 						<Spline className="absolute" scene="https://prod.spline.design/RdlIGAC2FgtRg8PR/scene.splinecode" />
 						<div className="grid grid-cols-2 w-screen h-screen bg-[#f3c3cb]">
@@ -109,18 +111,23 @@ export const World = () => {
 							</div>
 						</div>
 					</div>
-					{/* <div className="page absolute bg-[#E33529] w-screen h-screen z-[2]"></div>
-					<div className="page absolute bg-white w-screen h-screen z-[1]"></div> */}
+					<div className="w-full h-full flex flex-col items-center justify-between">
+						<div className="w-full flex items-center justify-between mt-[1rem]">
+							<button className="font-fuzzyBubbles font-bold text-[3rem] text-white ml-[4rem]" onClick={back}>
+								HOME
+							</button>
+							<div className="flex items-end font-oswald font-medium text-2xl text-white mr-[4rem]">
+								<div className="py-1 px-4">PICS</div>
+								<div className="py-1 pl-4 mr-[18px]">LETTER</div>
+							</div>
+						</div>
+						<div className="font-oswald font-medium text-[6.5rem] text-[#E33529] mb-[3rem]">
+							DAY #365 OF BEING TOGETHER
+						</div>
+					</div>
 				</div>
-
-				{/* <div className="w-screen h-screen flex flex-col items-center justify-between">
-					<div className="font-fuzzyBubbles font-bold text-8xl text-[#E33529] mt-[3.5rem]">A LOOK BACK</div>
-					<div className="font-fuzzyBubbles font-bold text-8xl text-[#E33529] mb-[4rem]">365 DAYS TOGETHER</div>
-				</div> */}
 			</Html>
-
-			<MovingGroup entering={entering} />
-
+			<MovingGroup pageState={pageState} />
 			<PerspectiveCamera fov={35} ref={cameraRef} makeDefault position={[0, 0, 3]} />
 		</>
 	);
