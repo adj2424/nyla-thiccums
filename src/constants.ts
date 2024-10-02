@@ -1,5 +1,5 @@
 export enum state {
-	HERO,
-	GALLERY,
-	LETTER
+	HERO = 'hero',
+	GALLERY = 'gallery',
+	LETTER = 'letter'
 }
