@@ -8,7 +8,7 @@ import { Star } from './Star';
 import { state } from '../constants';
 import { CustomEase } from 'gsap/CustomEase';
 
-export const MovingGroup = ({ pageState }) => {
+export const MovingGroup = ({ pageState }: any) => {
 	gsap.registerPlugin(CustomEase);
 	const numberOfPictures = 58;
 	const paths = [...Array(numberOfPictures)].map((_, idx) => `${idx + 1}.jpg`);
@@ -48,9 +48,9 @@ export const MovingGroup = ({ pageState }) => {
 	useLayoutEffect(() => {
 		if (pageState === state.HERO) {
 			gsap.to(movingGroup.current.scale, {
-				x: 0.0,
-				y: 0.0,
-				z: 0.0,
+				x: 0.001,
+				y: 0.001,
+				z: 0.001,
 				duration: 1.2,
 				ease: CustomEase.create(
 					'custom',
@@ -72,9 +72,9 @@ export const MovingGroup = ({ pageState }) => {
 		//
 		else if (pageState === state.LETTER) {
 			gsap.to(movingGroup.current.scale, {
-				x: 0.0,
-				y: 0.0,
-				z: 0.0,
+				x: 0.001,
+				y: 0.001,
+				z: 0.001,
 				duration: 1.2,
 				ease: CustomEase.create(
 					'custom',

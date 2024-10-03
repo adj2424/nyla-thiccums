@@ -1,4 +1,3 @@
-import { useLayoutEffect, useRef, useState } from 'react';
 import './App.css';
 import MyCanvas from './components/Canvas';
 import { gsap } from 'gsap';

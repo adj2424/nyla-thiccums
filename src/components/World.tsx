@@ -17,6 +17,7 @@ export const World = () => {
 	const scroll = useScroll();
 	const { scene } = useThree();
 	const [pageState, setPageState] = useState<state>(state.HERO);
+	const [hasHovered, setHasHovered] = useState(false);
 	let days = 0;
 
 	useEffect(() => {
@@ -60,7 +61,7 @@ export const World = () => {
 				yPercent: -85,
 				ease: 'power2.inOut',
 				duration: 0.4,
-				stagger: 0.85,
+				stagger: 0.1,
 				onComplete: () => {
 					// split type is weird so we have to revert it and then change text
 					text.revert();
@@ -75,7 +76,7 @@ export const World = () => {
 							yPercent: 0,
 							ease: 'power2.inOut',
 							duration: 0.4,
-							stagger: 0.85
+							stagger: 0.1
 						}
 					);
 				}
@@ -83,40 +84,97 @@ export const World = () => {
 		);
 	};
 
+	const onMouseHover = (id: string) => {
+		if (hasHovered) {
+			return;
+		}
+		gsap
+			.timeline()
+			.fromTo(
+				id,
+				{ yPercent: 0 },
+				{
+					yPercent: -90,
+					ease: 'power2.inOut',
+					duration: 0.4
+				}
+			)
+			.fromTo(
+				id,
+				{
+					yPercent: 90
+				},
+				{
+					yPercent: 0,
+					ease: 'power2.inOut',
+					duration: 0.4
+				}
+			)
+			.add(() => {
+				setHasHovered(true);
+			});
+	};
+
 	const toGallery = () => {
 		setPageState(state.GALLERY);
+		// move hero page up
 		gsap.to('.page', {
 			yPercent: -110,
 			duration: 1,
 			ease: 'back.in(1.7)'
 		});
+		// show day description
+		gsap.fromTo(
+			'#day-desc',
+			{
+				yPercent: 100
+			},
+			{
+				yPercent: 0,
+				ease: 'power2.inOut',
+				duration: 1,
+				delay: 1.5
+			}
+		);
+		// hide letter
+		gsap.to('#letter-container', {
+			yPercent: 0,
+			ease: 'power2.inOut',
+			duration: 1
+		});
 	};
 
 	const toHero = () => {
 		setPageState(state.HERO);
+		// show hero page
 		gsap.to('.page', {
 			yPercent: 0,
 			duration: 2,
 			delay: 1,
 			ease: 'power2.out'
 		});
-		// const desc = new SplitType('#day-desc', { types: 'words' });
-		// gsap.to(desc.words, {
-		// 	yPercent: -100,
-		// 	ease: 'power2.inOut',
-		// 	duration: 0.6,
-		// 	stagger: 0.05
-		// });
+		// hide day description
+		gsap.to('#day-desc', {
+			yPercent: -100,
+			ease: 'power2.inOut',
+			duration: 0.8
+		});
 	};
 
 	const toLetter = () => {
 		setPageState(state.LETTER);
-		const desc = new SplitType('#day-desc', { types: 'words' });
-		gsap.to(desc.words, {
+		// hide date description
+		gsap.to('#day-desc', {
 			yPercent: -100,
 			ease: 'power2.inOut',
 			duration: 0.6,
 			stagger: 0.05
+		});
+		// show letter
+		gsap.to('#letter-container', {
+			yPercent: -100,
+			ease: 'power2.inOut',
+			duration: 1
 		});
 	};
 
@@ -124,7 +182,16 @@ export const World = () => {
 		<>
 			<Html portal={{ current: scroll.fixed }} center position={[0, 0, 3]}>
 				<div className="absolute left-[-50vw] top-[-50vh] w-screen h-screen">
-					<div className="page absolute z-[3] ">
+					<div id="cursor" className="absolute z-[3] pointer-events-none">
+						<svg width="6rem" height="6rem" viewBox="0 0 24.00 24.00" fill="none">
+							<path
+								d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+								stroke="#E33529"
+								stroke-width="1.3"
+							></path>
+						</svg>
+					</div>
+					<div className="page absolute z-[2]">
 						<Spline className="absolute" scene="https://prod.spline.design/RdlIGAC2FgtRg8PR/scene.splinecode" />
 						<div className="grid grid-cols-2 w-screen h-screen bg-[#f3c3cb]">
 							<div className="flex items-center h-full font-fuzzyBubbles col-span-2 text-[18rem] font-bold text-white ml-[15rem]">
@@ -133,42 +200,81 @@ export const World = () => {
 									ENTER
 								</button>
 							</div>
-
 							<div className="flex items-center h-full font-fuzzyBubbles text-[3rem] ml-[15rem] text-[#E33529]">
 								my pookie bear
 							</div>
-
 							<div className="flex items-center h-full font-fuzzyBubbles text-[18rem] font-bold text-white ml-[15rem]">
 								YOU
 							</div>
 						</div>
 					</div>
-					<div className="w-full h-full flex flex-col items-center justify-between">
-						<div className="w-full flex items-center justify-between mt-[1rem]">
-							<button className="font-fuzzyBubbles font-bold text-[3rem] text-white ml-[4rem]" onClick={toHero}>
-								HOME
+					<div className="w-full flex justify-center">
+						<div className="w-full flex items-center justify-between mt-[1rem] overflow-hidden">
+							<button
+								className="font-fuzzyBubbles font-bold text-[3rem] text-white ml-[4rem]"
+								onMouseEnter={() => {
+									onMouseHover('#home');
+								}}
+								onMouseLeave={() => {
+									setHasHovered(false);
+								}}
+								onClick={toHero}
+							>
+								<div id="home">HOME</div>
 							</button>
-							<div className="flex items-end font-oswald font-medium text-[2rem] text-white mr-[4rem]">
-								<div className="py-1 px-4">PICS</div>
-								<button className="py-1 pl-4 mr-[18px]" onClick={toLetter}>
-									LETTER
+							<div className="flex items-end font-oswald font-medium text-[2rem] text-white mr-[4rem] overflow-hidden ">
+								<button
+									className="py-1 px-3 mr-[2rem]"
+									onMouseEnter={() => {
+										onMouseHover('#pics');
+									}}
+									onMouseLeave={() => {
+										setHasHovered(false);
+									}}
+								>
+									<div id="pics">PICS</div>
+								</button>
+								<button
+									className="py-1 px-3 mr-[14px]"
+									onMouseEnter={() => {
+										onMouseHover('#letter');
+									}}
+									onMouseLeave={() => {
+										setHasHovered(false);
+									}}
+									onClick={toLetter}
+								>
+									<div id="letter">LETTER</div>
 								</button>
 							</div>
 						</div>
-
-						<div
-							id="day-desc"
-							className="flex font-oswald font-medium align-baseline text-[6.5rem] text-[#E33529] mb-[3rem] overflow-hidden "
-						>
-							<div>DAY #</div>
-							<div ref={dayRef} className="overflow-hidden">
-								1
+						<div className="absolute overflow-hidden bottom-[3rem]">
+							<div id="day-desc" className="flex font-oswald font-medium align-baseline text-[6.5rem] text-[#E33529] ">
+								<div>DAY #</div>
+								<div ref={dayRef} className="overflow-hidden">
+									1
+								</div>
+								<div className="ml-[1.5rem]">OF BEING TOGETHER</div>
 							</div>
-							<div className="ml-[1.5rem]">OF BEING TOGETHER</div>
 						</div>
-
-						<div className="absolute items-center bottom-0 w-[70rem] h-[45rem] font-oswald font-medium bg-white text-[#f3c3cb] overflow-auto mt-[10rem]">
-							<div className="sticky top-0 text-right p-[1rem]">X</div>
+						<div
+							id="letter-container"
+							className={`absolute items-center bottom-[-45rem] w-[70rem] h-[45rem] font-oswald font-medium bg-white text-[#f3c3cb] overflow-auto mt-[10rem]
+								border-t-4 border-l-4 border-r-4 border-[#E33529] rounded-t-2xl
+								scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-[#E33529]`}
+						>
+							<button className="sticky top-0 float-right p-[1rem] text-[1.5rem]" onClick={toGallery}>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={3}
+									stroke="#E33529"
+									className="size-8 "
+								>
+									<path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+								</svg>
+							</button>
 							<div className="px-[6rem] text-[2.5rem] mt-[5rem]">10/15/2024</div>
 							<div className="px-[6rem] text-[2.5rem] mt-[5rem]">Happy One Year Anniversary Trinity 💝</div>
 							<div className="px-[6rem] text-[2.5rem] mt-[5rem]">
