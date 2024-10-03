@@ -14,6 +14,7 @@ export const World = () => {
 	const [cursor, setCursor] = useState({ x: 0, y: 0 });
 	const cameraRef = useRef() as any;
 	const dayRef = useRef() as any;
+	const cursorRef = useRef() as any;
 	const scroll = useScroll();
 	const { scene } = useThree();
 	const [pageState, setPageState] = useState<state>(state.HERO);
@@ -47,6 +48,7 @@ export const World = () => {
 		const parallaxY = -cursor.y;
 		cameraRef.current.position.x += (parallaxX - cameraRef.current.position.x) * 0.2;
 		cameraRef.current.position.y += (parallaxY - cameraRef.current.position.y) * 0.2;
+		cursorRef.current.style.left = `${cursor.x}px`;
 	});
 
 	const updateDate = () => {
@@ -182,12 +184,12 @@ export const World = () => {
 		<>
 			<Html portal={{ current: scroll.fixed }} center position={[0, 0, 3]}>
 				<div className="absolute left-[-50vw] top-[-50vh] w-screen h-screen">
-					<div id="cursor" className="absolute z-[3] pointer-events-none">
+					<div id="cursor" className="absolute z-[3] pointer-events-none" ref={cursorRef}>
 						<svg width="6rem" height="6rem" viewBox="0 0 24.00 24.00" fill="none">
 							<path
 								d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
 								stroke="#E33529"
-								stroke-width="1.3"
+								strokeWidth="1.3"
 							></path>
 						</svg>
 					</div>
@@ -230,6 +232,12 @@ export const World = () => {
 									}}
 									onMouseLeave={() => {
 										setHasHovered(false);
+									}}
+									onClick={() => {
+										window.open(
+											'https://www.dropbox.com/scl/fo/qvdcxcxkw6c55ul2yf6tt/AFcvG-aUwLjxDrQAm2y32a4?rlkey=q7rl5v81wgfpqibcakp90yo7l&st=5wx23bbq&dl=0',
+											'_blank'
+										);
 									}}
 								>
 									<div id="pics">PICS</div>

@@ -16,7 +16,7 @@ const MyCanvas = () => {
 			</p> */}
 
 			<Canvas>
-				<ScrollControls pages={28} damping={0.5} style={{}}>
+				<ScrollControls pages={28} damping={0.5}>
 					<World />
 				</ScrollControls>
 			</Canvas>
