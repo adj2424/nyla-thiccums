@@ -19,13 +19,28 @@ export const World = () => {
 	const { scene } = useThree();
 	const [pageState, setPageState] = useState<state>(state.HERO);
 	const [hasHovered, setHasHovered] = useState(false);
+
+	const cursorSizeRef = useRef() as any;
 	let days = 0;
+	//const [cursorSize, setCursorSize] = useState<any>();
 
 	useEffect(() => {
 		// remove this later
 		// setPageState(state.GALLERY);
+
 		window.addEventListener('mousemove', e => {
 			setCursor({ x: e.clientX / window.innerWidth - 0.5, y: e.clientY / window.innerHeight - 0.5 });
+			if (cursorSizeRef.current?.width === undefined) {
+				cursorSizeRef.current = cursorRef.current.getBoundingClientRect();
+			}
+			cursorRef.current.style.left = `${e.clientX - cursorSizeRef.current.width / 2}px`; // Set left position
+			cursorRef.current.style.top = `${e.clientY - cursorSizeRef.current.height / 2}px`; // Set top position
+		});
+		window.addEventListener('mousedown', () => {
+			cursorRef.current.style.transform = 'scale(0.5)';
+		});
+		window.addEventListener('mouseup', () => {
+			cursorRef.current.style.transform = 'scale(1)';
 		});
 		scene.background = new Color(243 / 255, 195 / 255, 203 / 255).convertSRGBToLinear();
 	}, []);
@@ -48,7 +63,6 @@ export const World = () => {
 		const parallaxY = -cursor.y;
 		cameraRef.current.position.x += (parallaxX - cameraRef.current.position.x) * 0.2;
 		cameraRef.current.position.y += (parallaxY - cameraRef.current.position.y) * 0.2;
-		cursorRef.current.style.left = `${cursor.x}px`;
 	});
 
 	const updateDate = () => {
@@ -90,6 +104,7 @@ export const World = () => {
 		if (hasHovered) {
 			return;
 		}
+		cursorRef.current.style.transform = 'scale(2)';
 		gsap
 			.timeline()
 			.fromTo(
@@ -115,6 +130,11 @@ export const World = () => {
 			.add(() => {
 				setHasHovered(true);
 			});
+	};
+
+	const onMouseAway = () => {
+		setHasHovered(false);
+		cursorRef.current.style.transform = 'scale(1)';
 	};
 
 	const toGallery = () => {
@@ -183,27 +203,38 @@ export const World = () => {
 	return (
 		<>
 			<Html portal={{ current: scroll.fixed }} center position={[0, 0, 3]}>
-				<div className="absolute left-[-50vw] top-[-50vh] w-screen h-screen">
-					<div id="cursor" className="absolute z-[3] pointer-events-none" ref={cursorRef}>
-						<svg width="6rem" height="6rem" viewBox="0 0 24.00 24.00" fill="none">
+				<div className="relative w-screen h-screen">
+					<div
+						id="cursor"
+						className="absolute z-[3] pointer-events-none top-[5rem] left-[5rem] transition ease-in-out duration-500"
+						ref={cursorRef}
+					>
+						<svg width="5rem" height="5rem" viewBox="0 0 24.00 24.00" fill="none">
 							<path
 								d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
 								stroke="#E33529"
-								strokeWidth="1.3"
+								strokeWidth="1"
 							></path>
 						</svg>
 					</div>
 					<div className="page absolute z-[2]">
 						<Spline className="absolute" scene="https://prod.spline.design/RdlIGAC2FgtRg8PR/scene.splinecode" />
 						<div className="grid grid-cols-2 w-screen h-screen bg-[#f3c3cb]">
-							<div className="flex items-center h-full font-fuzzyBubbles col-span-2 text-[18rem] font-bold text-white ml-[15rem]">
-								<div>I LOVE</div>
-								<button className="relative text-[3rem] ml-[15rem] z-[1] text-[#E33529]" onClick={toGallery}>
-									ENTER
+							<div className="flex items-center h-full col-span-2 text-[18rem] text-white ml-[15rem]">
+								<div className=" font-fuzzyBubbles font-bold">I LOVE</div>
+								<button
+									className="relative font-oswald text-[3rem] ml-[15rem] z-[1] text-[#E33529] overflow-hidden"
+									onMouseEnter={() => {
+										onMouseHover('#enter');
+									}}
+									onMouseLeave={onMouseAway}
+									onClick={toGallery}
+								>
+									<div id="enter">ENTER</div>
 								</button>
 							</div>
-							<div className="flex items-center h-full font-fuzzyBubbles text-[3rem] ml-[15rem] text-[#E33529]">
-								my pookie bear
+							<div className="flex items-center h-full font-oswald text-[3rem] ml-[15rem] text-[#E33529]">
+								MY POOKIE BEAR 😻
 							</div>
 							<div className="flex items-center h-full font-fuzzyBubbles text-[18rem] font-bold text-white ml-[15rem]">
 								YOU
@@ -217,9 +248,7 @@ export const World = () => {
 								onMouseEnter={() => {
 									onMouseHover('#home');
 								}}
-								onMouseLeave={() => {
-									setHasHovered(false);
-								}}
+								onMouseLeave={onMouseAway}
 								onClick={toHero}
 							>
 								<div id="home">HOME</div>
@@ -230,9 +259,7 @@ export const World = () => {
 									onMouseEnter={() => {
 										onMouseHover('#pics');
 									}}
-									onMouseLeave={() => {
-										setHasHovered(false);
-									}}
+									onMouseLeave={onMouseAway}
 									onClick={() => {
 										window.open(
 											'https://www.dropbox.com/scl/fo/qvdcxcxkw6c55ul2yf6tt/AFcvG-aUwLjxDrQAm2y32a4?rlkey=q7rl5v81wgfpqibcakp90yo7l&st=5wx23bbq&dl=0',
@@ -247,9 +274,7 @@ export const World = () => {
 									onMouseEnter={() => {
 										onMouseHover('#letter');
 									}}
-									onMouseLeave={() => {
-										setHasHovered(false);
-									}}
+									onMouseLeave={onMouseAway}
 									onClick={toLetter}
 								>
 									<div id="letter">LETTER</div>
@@ -271,8 +296,16 @@ export const World = () => {
 								border-t-4 border-l-4 border-r-4 border-[#E33529] rounded-t-2xl
 								scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-[#E33529]`}
 						>
-							<button className="sticky top-0 float-right p-[1rem] text-[1.5rem]" onClick={toGallery}>
+							<button
+								className="sticky top-0 float-right p-[1rem] text-[1.5rem] overflow-hidden"
+								onClick={toGallery}
+								onMouseEnter={() => {
+									onMouseHover('');
+								}}
+								onMouseLeave={onMouseAway}
+							>
 								<svg
+									id="close"
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
