@@ -1,18 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { useScroll } from '@react-three/drei';
+import { Html, useScroll } from '@react-three/drei';
 import { TextureLoader } from 'three';
 import { gsap } from 'gsap';
 import { Picture } from './Picture';
 import { Star } from './Star';
 import { state } from '../constants';
 import { CustomEase } from 'gsap/CustomEase';
+import { NUM_OF_PICS, NUM_OF_HTML_CARDS } from '../constants';
 
 export const MovingGroup = ({ pageState }: any) => {
 	gsap.registerPlugin(CustomEase);
-	const numberOfPictures = 58;
-	const paths = [...Array(numberOfPictures)].map((_, idx) => `${idx + 1}.jpg`);
+
+	const paths = [...Array(NUM_OF_PICS)].map((_, idx) => `${idx + 1}.jpg`);
 	const textures = useLoader(TextureLoader, paths);
 	const movingGroup = useRef() as any;
 	const scroll = useScroll();
@@ -41,7 +42,7 @@ export const MovingGroup = ({ pageState }: any) => {
 
 	useLayoutEffect(() => {
 		timeline.to(movingGroup.current.position, {
-			z: 2.5 * numberOfPictures - 3.5,
+			z: 2.5 * (NUM_OF_PICS + NUM_OF_HTML_CARDS) - 3.5,
 			duration: 20
 		});
 	}, []);
@@ -91,6 +92,17 @@ export const MovingGroup = ({ pageState }: any) => {
 			<group ref={movingGroup} scale={[0, 0, 0]}>
 				{pictures}
 				{stars}
+				{/* <Html
+					transform
+					portal={{ current: scroll.fixed }}
+					center
+					position={[-1.5, 0, (-NUM_OF_PICS - NUM_OF_HTML_CARDS) * 2.5]}
+				>
+					<div className="relative w-[30px] h-[45vh] bg-white"> testing 123</div>
+				</Html>
+				<Html portal={{ current: scroll.fixed }} center position={[1.5, 0, (-NUM_OF_PICS - NUM_OF_HTML_CARDS) * 2.5]}>
+					<div className="relative w-[33vw] h-[45vh] bg-white"> testing 123</div>
+				</Html> */}
 			</group>
 		</>
 	);
