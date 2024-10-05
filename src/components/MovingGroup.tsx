@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { useScroll } from '@react-three/drei';
@@ -46,6 +47,7 @@ export const MovingGroup = ({ pageState }: any) => {
 	}, []);
 
 	useLayoutEffect(() => {
+		// hide everything
 		if (pageState === state.HERO) {
 			gsap.to(movingGroup.current.scale, {
 				x: 0.001,
@@ -58,13 +60,13 @@ export const MovingGroup = ({ pageState }: any) => {
 				)
 			});
 		}
-		//
+		// show everything
 		else if (pageState === state.GALLERY) {
 			gsap.to(movingGroup.current.scale, {
 				x: 1,
 				y: 1,
 				z: 1,
-				duration: 3.5,
+				duration: 2,
 				delay: 0.8,
 				ease: 'power2.inOut'
 			});

@@ -7,8 +7,7 @@ export default {
 		extend: {
 			fontFamily: {
 				fuzzyBubbles: ['Fuzzy Bubbles', 'sans-serif'],
-				oswald: ['Oswald', 'sans-serif'],
-				raleway: ['Raleway', 'sans-serif']
+				oswald: ['Oswald', 'sans-serif']
 			}
 		}
 	},
