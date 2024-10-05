@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { Html, useScroll } from '@react-three/drei';
+import { useScroll } from '@react-three/drei';
 import { TextureLoader } from 'three';
 import { gsap } from 'gsap';
 import { Picture } from './Picture';
