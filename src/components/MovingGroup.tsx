@@ -96,9 +96,10 @@ export const MovingGroup = ({ pageState }: any) => {
 					transform
 					portal={{ current: scroll.fixed }}
 					center
+					occlude="blending"
 					position={[-1.5, 0, (-NUM_OF_PICS - NUM_OF_HTML_CARDS) * 2.5]}
 				>
-					<div className="relative w-[30px] h-[45vh] bg-white"> testing 123</div>
+					<div className="relative w-[30px] h-[50px] bg-blue-100"> testing first</div>
 				</Html>
 				<Html portal={{ current: scroll.fixed }} center position={[1.5, 0, (-NUM_OF_PICS - NUM_OF_HTML_CARDS) * 2.5]}>
 					<div className="relative w-[33vw] h-[45vh] bg-white"> testing 123</div>
@@ -107,4 +108,3 @@ export const MovingGroup = ({ pageState }: any) => {
 		</>
 	);
 };
-
