@@ -4,12 +4,19 @@ interface HeroProps {
 	onMouseHover: (id: string) => void;
 	onMouseAway: () => void;
 	toGallery: () => void;
+	setIsSplineComplete: (arg: boolean) => void;
 }
 
-export const HeroPage = ({ onMouseHover, onMouseAway, toGallery }: HeroProps) => {
+export const HeroPage = ({ onMouseHover, onMouseAway, toGallery, setIsSplineComplete }: HeroProps) => {
 	return (
 		<div className="page absolute z-[2]">
-			<Spline className="absolute" scene="https://prod.spline.design/RdlIGAC2FgtRg8PR/scene.splinecode" />
+			<Spline
+				className="absolute"
+				onLoad={() => {
+					setIsSplineComplete(true);
+				}}
+				scene="https://prod.spline.design/RdlIGAC2FgtRg8PR/scene.splinecode"
+			/>
 			<div className="absolute bg-[#f3c3cb] w-[200px] h-[10%] right-0 bottom-0"></div>
 			<div className="grid grid-cols-2 w-screen h-screen bg-[#f3c3cb]">
 				<div className="flex items-center h-full col-span-2 text-[18rem] text-white ml-[15rem]">

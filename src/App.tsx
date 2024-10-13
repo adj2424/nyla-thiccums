@@ -1,25 +1,40 @@
+import { useEffect, useState } from 'react';
 import './App.css';
-import MyCanvas from './components/Canvas';
-import { gsap } from 'gsap';
-
-gsap.registerPlugin();
+import { ScrollControls, useProgress } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { World } from './components/World';
+import { Loading } from './components/Loading';
 
 function App() {
-	return (
-		<div className="">
-			{/* <div className="flex flex-col justify-between items-center absolute w-full h-full pointer-events-none z-[1]">
-				<div ref={top} className="text-9xl mt-[5.5rem]">
-					365 DAYS
-				</div>
-				<div ref={bot} className="text-9xl mb-[6rem]">
-					TOGETHER
-				</div>
-			</div> */}
+	const [isSplineComplete, setIsSplineComplete] = useState(false);
+	const [isLoadersComplete, setIsLoadersComplete] = useState(false);
+	const { active } = useProgress();
+	// context provider doesn't work fsr with r3f????????
+	// https://github.com/pmndrs/react-three-fiber/issues/262 - too lazy to fix
+	//
+	useEffect(() => {
+		if (isLoadersComplete && isSplineComplete) {
+			console.log('both r done yay');
+		}
+	}, [isSplineComplete, isLoadersComplete]);
 
+	useEffect(() => {
+		if (active === false) {
+			setIsLoadersComplete(true);
+		}
+	}, [active]);
+
+	return (
+		<>
+			<Loading></Loading>
 			<div className="fixed w-full h-screen">
-				<MyCanvas />
+				<Canvas>
+					<ScrollControls pages={28} damping={0.5}>
+						<World setIsSplineComplete={setIsSplineComplete} />
+					</ScrollControls>
+				</Canvas>
 			</div>
-		</div>
+		</>
 	);
 }
 

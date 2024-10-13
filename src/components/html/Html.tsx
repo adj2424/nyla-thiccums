@@ -13,9 +13,10 @@ interface MyHtmlProps {
 	pageState: any;
 	setPageState: (state: state) => void;
 	scroll: ScrollControlsState;
+	setIsSplineComplete: (arg: boolean) => void;
 }
 
-const MyHtml = ({ pageState, setPageState, scroll }: MyHtmlProps) => {
+export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }: MyHtmlProps) => {
 	const audioRef = useRef() as any;
 	const dayRef = useRef() as any;
 	const cursorRef = useRef() as any;
@@ -208,7 +209,7 @@ const MyHtml = ({ pageState, setPageState, scroll }: MyHtmlProps) => {
 				yPercent: 0,
 				ease: 'power2.inOut',
 				duration: 1,
-				delay: 1.5
+				delay: 0.6
 			}
 		);
 		// hide letter
@@ -225,7 +226,7 @@ const MyHtml = ({ pageState, setPageState, scroll }: MyHtmlProps) => {
 		gsap.to('.page', {
 			yPercent: 0,
 			duration: 2,
-			delay: 1,
+			delay: 0.8,
 			ease: 'power2.out'
 		});
 		// hide day description
@@ -242,8 +243,7 @@ const MyHtml = ({ pageState, setPageState, scroll }: MyHtmlProps) => {
 		gsap.to('#day-desc', {
 			yPercent: -100,
 			ease: 'power2.inOut',
-			duration: 0.6,
-			stagger: 0.05
+			duration: 0.5
 		});
 		// show letter
 		gsap.to('#letter-container', {
@@ -260,7 +260,12 @@ const MyHtml = ({ pageState, setPageState, scroll }: MyHtmlProps) => {
 				<source src="doodle.mp3" type="audio/mpeg" />
 				Your browser does not support the audio tag.
 			</audio>
-			<HeroPage onMouseHover={onMouseHover} onMouseAway={onMouseAway} toGallery={toGallery}></HeroPage>
+			<HeroPage
+				onMouseHover={onMouseHover}
+				onMouseAway={onMouseAway}
+				toGallery={toGallery}
+				setIsSplineComplete={setIsSplineComplete}
+			></HeroPage>
 			<div className="w-full flex justify-center">
 				<div className="w-full flex items-center justify-between mt-[1rem] overflow-hidden">
 					<div
@@ -325,5 +330,3 @@ const MyHtml = ({ pageState, setPageState, scroll }: MyHtmlProps) => {
 		</div>
 	);
 };
-
-export default MyHtml;

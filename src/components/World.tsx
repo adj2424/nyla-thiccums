@@ -3,13 +3,15 @@ import { useEffect, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Html, PerspectiveCamera, useScroll } from '@react-three/drei';
 import { Color } from 'three';
-import { gsap } from 'gsap';
 import { MovingGroup } from './MovingGroup';
 import { state } from '../constants';
-import MyHtml from './html/Html';
+import { MyHtml } from './html/Html';
 
-export const World = () => {
-	gsap.registerPlugin();
+interface WorldProps {
+	setIsSplineComplete: (arg: boolean) => void;
+}
+
+export const World = ({ setIsSplineComplete }: WorldProps) => {
 	const [cursor, setCursor] = useState({ x: 0, y: 0 });
 	const [pageState, setPageState] = useState<state>(state.HERO);
 	const cameraRef = useRef() as any;
@@ -33,7 +35,12 @@ export const World = () => {
 	return (
 		<>
 			<Html portal={{ current: scroll.fixed }} center position={[0, 0, 3]}>
-				<MyHtml pageState={pageState} setPageState={setPageState} scroll={scroll} />
+				<MyHtml
+					pageState={pageState}
+					setPageState={setPageState}
+					scroll={scroll}
+					setIsSplineComplete={setIsSplineComplete}
+				/>
 			</Html>
 			<MovingGroup pageState={pageState} />
 			<PerspectiveCamera fov={35} ref={cameraRef} makeDefault position={[0, 0, 3]} />
