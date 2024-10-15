@@ -11,12 +11,6 @@ function App() {
 	const { active } = useProgress();
 	// context provider doesn't work fsr with r3f????????
 	// https://github.com/pmndrs/react-three-fiber/issues/262 - too lazy to fix
-	//
-	useEffect(() => {
-		if (isLoadersComplete && isSplineComplete) {
-			console.log('both r done yay');
-		}
-	}, [isSplineComplete, isLoadersComplete]);
 
 	useEffect(() => {
 		if (active === false) {
@@ -26,7 +20,7 @@ function App() {
 
 	return (
 		<>
-			<Loading></Loading>
+			<Loading isComplete={isLoadersComplete && isSplineComplete} />
 			<div className="fixed w-full h-screen">
 				<Canvas>
 					<ScrollControls pages={28} damping={0.5}>

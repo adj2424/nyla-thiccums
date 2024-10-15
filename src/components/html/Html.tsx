@@ -269,7 +269,7 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 			<div className="w-full flex justify-center">
 				<div className="w-full flex items-center justify-between mt-[1rem] overflow-hidden">
 					<div
-						className="font-fuzzyBubbles font-bold text-[3rem] text-white ml-[4rem]"
+						className="font-fuzzyBubbles font-bold text-[3rem] text-light ml-[4rem]"
 						onMouseEnter={() => {
 							onMouseHover('#home');
 						}}
@@ -278,7 +278,7 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 					>
 						<div id="home">HOME</div>
 					</div>
-					<div className="flex items-center font-oswald font-medium text-[2rem] text-white mr-[3rem] overflow-hidden ">
+					<div className="flex items-center font-oswald font-medium text-[2rem] text-light mr-[3rem] overflow-hidden ">
 						<div
 							className="py-1 mr-[3rem]"
 							onMouseEnter={() => {
@@ -317,7 +317,7 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 					</div>
 				</div>
 				<div className="absolute overflow-hidden bottom-[3rem]">
-					<div id="day-desc" className="flex font-oswald font-medium align-baseline text-[6.5rem] text-[#E33529] ">
+					<div id="day-desc" className="flex font-oswald font-medium align-baseline text-[6.5rem] text-dark">
 						<div>DAY #</div>
 						<div ref={dayRef} className="overflow-hidden">
 							1

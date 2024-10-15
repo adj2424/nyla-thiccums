@@ -8,6 +8,11 @@ export default {
 			fontFamily: {
 				fuzzyBubbles: ['Fuzzy Bubbles', 'sans-serif'],
 				oswald: ['Oswald', 'sans-serif']
+			},
+			colors: {
+				dark: '#E33529',
+				medium: '#f3c3cb',
+				light: '#ffffff'
 			}
 		}
 	},
