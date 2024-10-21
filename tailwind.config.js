@@ -10,12 +10,11 @@ export default {
 				oswald: ['Oswald', 'sans-serif']
 			},
 			colors: {
-				dark: '#E33529',
-				medium: '#f3c3cb',
+				dark: '#203D99',
+				medium: '#FFF1DA',
 				light: '#ffffff'
 			}
 		}
 	},
 	plugins: [scrollbarPlugin({ nocompatible: true, preferredStrategy: 'pseudoelements' })]
 };
-
