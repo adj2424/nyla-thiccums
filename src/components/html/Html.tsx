@@ -144,7 +144,7 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 		if (hasHovered) {
 			return;
 		}
-		cursorRef.current.style.transform = 'scale(2)';
+		cursorRef.current.style.transform = 'scale(1.5)';
 		// cursorRef.current.style.cursor = 'none';
 		if (id === null) {
 			setHasHovered(true);
@@ -225,9 +225,9 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 		// show hero page
 		gsap.to('.page', {
 			yPercent: 0,
-			duration: 2,
-			delay: 0.8,
-			ease: 'power2.out'
+			duration: 1,
+			delay: 0.7,
+			ease: 'power1.out'
 		});
 		// hide day description
 		gsap.to('#day-desc', {
@@ -269,16 +269,16 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 			<div className="w-full flex justify-center">
 				<div className="w-full flex items-center justify-between mt-[1rem] overflow-hidden">
 					<div
-						className="font-fuzzyBubbles font-bold text-[3rem] text-light ml-[4rem]"
+						className="font-fuzzyBubbles font-bold text-[3rem] text-dark ml-[4rem]"
 						onMouseEnter={() => {
 							onMouseHover('#home');
 						}}
 						onMouseLeave={onMouseAway}
 						onClick={toHero}
 					>
-						<div id="home">HOME</div>
+						<div id="home">NYLA</div>
 					</div>
-					<div className="flex items-center font-oswald font-medium text-[2rem] text-light mr-[3rem] overflow-hidden ">
+					<div className="flex items-center font-oswald font-medium text-[2rem] text-dark mr-[3rem] overflow-hidden ">
 						<div
 							className="py-1 mr-[3rem]"
 							onMouseEnter={() => {
@@ -292,7 +292,7 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 								);
 							}}
 						>
-							<div id="pics">PICS</div>
+							<div id="pics">GALLERY</div>
 						</div>
 						<div
 							className="p-1 mr-[3rem]"
@@ -302,7 +302,7 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 							onMouseLeave={onMouseAway}
 							onClick={toLetter}
 						>
-							<div id="letter">LETTER</div>
+							<div id="letter">ABOUT</div>
 						</div>
 						<div
 							className="p-1 mr-[14px] overflow-hidden"
@@ -322,7 +322,10 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 						<div ref={dayRef} className="overflow-hidden">
 							1
 						</div>
-						<div className="ml-[1.5rem]">OF BEING TOGETHER</div>
+						<div className="flex ml-[1.5rem]">
+							<div>OF BEING SILLY</div>
+							<div className="text-center -mt-[.8rem]">🐱</div>
+						</div>
 					</div>
 				</div>
 				<Letter onMouseHover={onMouseHover} onMouseAway={onMouseAway} toGallery={toGallery}></Letter>

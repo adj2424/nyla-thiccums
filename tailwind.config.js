@@ -10,8 +10,8 @@ export default {
 				oswald: ['Oswald', 'sans-serif']
 			},
 			colors: {
-				dark: '#203D99',
-				medium: '#FFF1DA',
+				dark: '#263FCC', //203D99
+				medium: '#FFEFCC', //#FFF1DA
 				light: '#ffffff'
 			}
 		}

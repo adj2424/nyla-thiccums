@@ -8,7 +8,7 @@ const Letter = ({ onMouseHover, onMouseAway, toGallery }: LetterProps) => {
 	return (
 		<div
 			id="letter-container"
-			className={`absolute items-center bottom-[-80%] w-[70rem] h-[80%] font-oswald font-medium bg-light text-medium overflow-auto mt-[10rem]
+			className={`absolute items-center bottom-[-80%] w-[70rem] h-[80%] font-oswald font-medium bg-light text-dark overflow-auto mt-[10rem]
 border-t-4 border-l-4 border-r-4 border-dark rounded-t-2xl
 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-dark`}
 		>
@@ -26,7 +26,7 @@ scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-th
 					fill="none"
 					viewBox="0 0 24 24"
 					strokeWidth={3}
-					stroke="#E33529"
+					stroke="#203D99"
 					className="size-8 "
 				>
 					<path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />

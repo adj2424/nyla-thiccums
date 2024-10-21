@@ -51,8 +51,8 @@ export const MovingGroup = ({ pageState }: any) => {
 				x: 0.001,
 				y: 0.001,
 				z: 0.001,
-				duration: 1.2,
-				ease: 'power2.inOut'
+				duration: 0.6,
+				ease: 'power1.inOut'
 			});
 		}
 		// show everything

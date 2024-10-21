@@ -6,6 +6,7 @@ interface CursorProps {
 }
 
 export const Cursor = ({ cursorRef }: CursorProps) => {
+	const color = '#203D99';
 	const cursorSizeRef = useRef() as any;
 	useEffect(() => {
 		if (cursorSizeRef.current?.width === undefined) {
@@ -30,11 +31,118 @@ export const Cursor = ({ cursorRef }: CursorProps) => {
 			className="absolute z-[3] pointer-events-none top-[5rem] left-[5rem] transition ease-in-out duration-500"
 			ref={cursorRef}
 		>
-			<svg width="4rem" height="4rem" viewBox="0 0 24.00 24.00" fill="none">
+			<svg width="5rem" height="5rem" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path
-					d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
-					stroke="#E33529"
-					strokeWidth="1.25"
+					d="M104.613 165C62.4895 136.517 97.2059 92.081 125 137.46"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M259 133.798C279.706 100.527 328.781 104.891 298.253 150"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M161.153 159C160.362 154.1 162.845 149.364 164 145"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M194 165C194.409 156.616 194.948 148.211 196 140"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M228 159C228 154.661 228 150.329 228 146"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M153 223C160.473 220.915 168.386 220.023 176 219"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M225 219C232.895 217.426 240.281 217.931 248 219"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M188 256.005C221.5 238.742 217.338 264.602 191.479 260.565"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M201 267C199.054 288.306 181.973 290.175 167 283.734"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M200.041 267C198.864 295.299 223.581 291.006 237 277.407"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M111 243C96.3264 238.228 80.8117 237.965 66 236"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M116 267C99.8675 270.808 83.7433 273.752 68 279"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M293 233C304.501 229.96 315.688 225.62 327 222"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				></path>
+				<path
+					d="M297 261C308.857 259.497 322.138 260.027 333 260.429"
+					stroke={color}
+					stroke-opacity="0.9"
+					stroke-width="16"
+					stroke-linecap="round"
+					stroke-linejoin="round"
 				></path>
 			</svg>
 		</div>

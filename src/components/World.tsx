@@ -22,7 +22,7 @@ export const World = ({ setIsSplineComplete }: WorldProps) => {
 		window.addEventListener('mousemove', e => {
 			setCursor({ x: e.clientX / window.innerWidth - 0.5, y: e.clientY / window.innerHeight - 0.5 });
 		});
-		scene.background = new Color(255 / 255, 241 / 255, 218 / 255).convertSRGBToLinear();
+		scene.background = new Color(255 / 255, 239 / 255, 204 / 255).convertSRGBToLinear();
 	}, []);
 
 	useFrame(() => {
