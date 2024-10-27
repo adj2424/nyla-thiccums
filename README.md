@@ -1,6 +1,6 @@
 ## About The Project
 
-Built with React, React Three Fiber, Tailwind CSS, GSAP, Spline, GLSL, and TypeScript. You can view the live version [here](https://google.com).
+Built with React, React Three Fiber, Tailwind CSS, GSAP, Spline, GLSL, and TypeScript. You can view the live version [here](https://nyla-thiccums.vercel.app/).
 
 ## Getting Started
 
