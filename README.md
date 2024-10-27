@@ -1,6 +1,6 @@
 ## About The Project
 
-Happy One Year Anniversary! You can view the live version [here](https://heehee-eta.vercel.app/).
+Built with React, React Three Fiber, Tailwind CSS, GSAP, Spline, GLSL, and TypeScript. You can view the live version [here](https://google.com).
 
 ## Getting Started
 
@@ -12,7 +12,7 @@ To get a local copy up and running follow these simple example steps.
 1. Clone the repo
 
    ```sh
-   git clone https://github.com/adj2424/heehee.git
+   git clone https://github.com/adj2424/nyla-thiccums.git
    ```
 
 2. Install NPM packages

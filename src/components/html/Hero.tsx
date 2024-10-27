@@ -35,7 +35,7 @@ export const HeroPage = ({ onMouseHover, onMouseAway, toGallery, setIsSplineComp
 				<div className="flex flex-col items-center justify-center w-[50%] font-oswald text-dark">
 					<div className="text-[4rem]"> THE BEST CAT</div>
 					<div
-						className="relative font-oswald text-[3rem] z-[1] bg-dark text-medium overflow-hidden"
+						className="relative font-oswald text-[3rem] mt-[0.5rem] px-[1rem] z-[1] rounded-2xl border-dark bg-dark text-white overflow-hidden"
 						onMouseEnter={() => {
 							onMouseHover('#enter');
 						}}

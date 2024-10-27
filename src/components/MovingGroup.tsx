@@ -66,7 +66,7 @@ export const MovingGroup = ({ pageState }: any) => {
 			});
 		}
 		// hide everything
-		else if (pageState === state.LETTER) {
+		else if (pageState === state.ABOUT) {
 			gsap.to(movingGroup.current.scale, {
 				x: 0.001,
 				y: 0.001,

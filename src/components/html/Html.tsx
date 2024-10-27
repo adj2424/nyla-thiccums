@@ -6,7 +6,7 @@ import SplitType from 'split-type';
 import { ScrollControlsState } from '@react-three/drei';
 import { Cursor } from './Cursor';
 import { HeroPage } from './Hero';
-import Letter from './Letter';
+import { About } from './About';
 import '../../css/html.css';
 
 interface MyHtmlProps {
@@ -24,13 +24,22 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 	const [hasHovered, setHasHovered] = useState(false);
 	const [isMuted, setIsMuted] = useState(true);
 	const [audioIcon, setAudioIcon] = useState<any>();
+	const [age, setAge] = useState(0);
 	let days = 0;
+
+	useEffect(() => {
+		const curr = new Date();
+		const past = new Date('2022-10-25');
+		const difference = curr.getTime() - past.getTime();
+		setAge(Math.floor(difference / (1000 * 60 * 60 * 24)));
+		audioRef.current.volume = 0.3;
+	}, []);
 
 	useEffect(() => {
 		// update date every 1.8 seconds
 		const interval = setInterval(() => {
-			if (days !== Math.round(scroll.offset * 365) && pageState === state.GALLERY) {
-				days = Math.round(scroll.offset * 365);
+			if (days !== Math.round(scroll.offset * age) && pageState === state.GALLERY) {
+				days = Math.round(scroll.offset * age);
 				updateDate();
 			}
 		}, 1800);
@@ -212,8 +221,8 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 				delay: 0.6
 			}
 		);
-		// hide letter
-		gsap.to('#letter-container', {
+		// hide about
+		gsap.to('#about-container', {
 			yPercent: 0,
 			ease: 'power2.inOut',
 			duration: 1
@@ -237,16 +246,16 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 		});
 	};
 
-	const toLetter = () => {
-		setPageState(state.LETTER);
+	const toAbout = () => {
+		setPageState(state.ABOUT);
 		// hide date description
 		gsap.to('#day-desc', {
 			yPercent: -100,
 			ease: 'power2.inOut',
 			duration: 0.5
 		});
-		// show letter
-		gsap.to('#letter-container', {
+		// show about
+		gsap.to('#about-container', {
 			yPercent: -100,
 			ease: 'power2.inOut',
 			duration: 1
@@ -257,7 +266,7 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 		<div className="relative w-screen h-screen cursor-none">
 			<Cursor cursorRef={cursorRef}></Cursor>
 			<audio loop ref={audioRef}>
-				<source src="doodle.mp3" type="audio/mpeg" />
+				<source src="eepy.mp3" type="audio/mpeg" />
 				Your browser does not support the audio tag.
 			</audio>
 			<HeroPage
@@ -286,10 +295,7 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 							}}
 							onMouseLeave={onMouseAway}
 							onClick={() => {
-								window.open(
-									'https://www.dropbox.com/scl/fo/qvdcxcxkw6c55ul2yf6tt/AFcvG-aUwLjxDrQAm2y32a4?rlkey=q7rl5v81wgfpqibcakp90yo7l&st=5wx23bbq&dl=0',
-									'_blank'
-								);
+								window.open('https://photos.app.goo.gl/wsbmgvNxyY6938oA8', '_blank');
 							}}
 						>
 							<div id="pics">GALLERY</div>
@@ -297,12 +303,12 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 						<div
 							className="p-1 mr-[3rem]"
 							onMouseEnter={() => {
-								onMouseHover('#letter');
+								onMouseHover('#about');
 							}}
 							onMouseLeave={onMouseAway}
-							onClick={toLetter}
+							onClick={toAbout}
 						>
-							<div id="letter">ABOUT</div>
+							<div id="about">ABOUT</div>
 						</div>
 						<div
 							className="p-1 mr-[14px] overflow-hidden"
@@ -328,7 +334,7 @@ export const MyHtml = ({ pageState, setPageState, scroll, setIsSplineComplete }:
 						</div>
 					</div>
 				</div>
-				<Letter onMouseHover={onMouseHover} onMouseAway={onMouseAway} toGallery={toGallery}></Letter>
+				<About onMouseHover={onMouseHover} onMouseAway={onMouseAway} toGallery={toGallery}></About>
 			</div>
 		</div>
 	);

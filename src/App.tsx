@@ -23,7 +23,7 @@ function App() {
 			<Loading isComplete={isLoadersComplete && isSplineComplete} />
 			<div className="fixed w-full h-screen">
 				<Canvas>
-					<ScrollControls pages={28} damping={0.5}>
+					<ScrollControls pages={25} damping={0.6}>
 						<World setIsSplineComplete={setIsSplineComplete} />
 					</ScrollControls>
 				</Canvas>
@@ -33,4 +33,3 @@ function App() {
 }
 
 export default App;
-

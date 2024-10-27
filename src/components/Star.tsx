@@ -42,7 +42,6 @@ export const Star = ({ idx, group, totalStars }: Props) => {
 		}
 		// if stars too far back, send stars in front of camera
 		else if (group.current.position.z + skip - offset < -starRef.current.position.z) {
-			console.log('opacity changed');
 			gsap.timeline().to(starRef.current.material, {
 				opacity: 0,
 				duration: 0.3,
