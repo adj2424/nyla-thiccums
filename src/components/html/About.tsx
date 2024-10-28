@@ -38,8 +38,8 @@ scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-th
 				places. She was adopted at the Montgomery Animal Shelter in 2022 when she was 1 years old. She is full of life
 				and excitement! With the sounds of her food being poured in her food bowl, she becomes relentless with her
 				zoomies. Just make sure shes eating actual food and no toys! She spends her day looking for the coziest places
-				to nap whether it would be an amazon package box, under the bed or any warm. She could stay there napping for
-				over 18 hours. When she is awake, her favorite activities are looking innocent after knocking things off the
+				to nap whether it would be an amazon package box, under the bed or anything warm. She could stay there napping
+				for over 18 hours. When she is awake, her favorite activities are looking innocent after knocking things off the
 				table, admiring the lawn outside through the window and chasing red dots. With her intensive day, she loves to
 				wind down by getting lots of head scratches and being held. Her fur is just too poofy :3
 			</div>
